@@ -6,8 +6,6 @@ class DeviseTokenAuthCreateUsers < ActiveRecord::Migration[6.1]
       t.string :name, null: false, unique: true, limit: 45
       t.string :self_introduction, limit: 120, default: ""
       t.string :email, null: false,unique: true, limit: 256
-      t.string :phone_number, null: false, limit: 11, default: ""
-      t.date :birthday, null: false, default: ""
       t.text :image, default: ""
 
       ## Required

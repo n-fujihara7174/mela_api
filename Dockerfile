@@ -1,6 +1,6 @@
 FROM ruby:3.0.2-alpine3.14
 
-ENV HOME="/api" \
+ENV HOME="/mela_api" \
     LANG=C.UTF-8 \
     TZ=Asia/Tokyo \
     EDITOR="vi"

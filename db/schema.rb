@@ -29,26 +29,6 @@ ActiveRecord::Schema.define(version: 2022_03_23_000641) do
     t.index ["user_id", "post_id"], name: "index_likes_on_user_id_and_post_id", unique: true
   end
 
-  create_table "message_users", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "opposite_user_id", null: false
-    t.boolean "is_delete", null: false
-    t.datetime "created_at", null: false
-    t.index ["opposite_user_id"], name: "index_message_users_on_opposite_user_id"
-    t.index ["user_id"], name: "index_message_users_on_user_id"
-  end
-
-  create_table "messages", force: :cascade do |t|
-    t.bigint "sender_user_id", null: false
-    t.string "message_contents", limit: 240, null: false
-    t.text "message_image"
-    t.bigint "receiver_user_id", null: false
-    t.boolean "is_delete", null: false
-    t.datetime "created_at", null: false
-    t.index ["receiver_user_id"], name: "index_messages_on_receiver_user_id"
-    t.index ["sender_user_id"], name: "index_messages_on_sender_user_id"
-  end
-
   create_table "posts", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "post_contents", limit: 240, null: false
@@ -78,8 +58,6 @@ ActiveRecord::Schema.define(version: 2022_03_23_000641) do
     t.string "name", limit: 45, null: false
     t.string "self_introduction", limit: 120, default: ""
     t.string "email", limit: 256, null: false
-    t.string "phone_number", limit: 11, default: "", null: false
-    t.date "birthday", null: false
     t.text "image", default: ""
     t.string "provider", default: "email", null: false
     t.string "uid", default: "", null: false
@@ -110,10 +88,6 @@ ActiveRecord::Schema.define(version: 2022_03_23_000641) do
   add_foreign_key "follows", "users", column: "follower_user_id"
   add_foreign_key "likes", "posts"
   add_foreign_key "likes", "users"
-  add_foreign_key "message_users", "users"
-  add_foreign_key "message_users", "users", column: "opposite_user_id"
-  add_foreign_key "messages", "users", column: "receiver_user_id"
-  add_foreign_key "messages", "users", column: "sender_user_id"
   add_foreign_key "posts", "users"
   add_foreign_key "user_role_grants", "roles"
   add_foreign_key "user_role_grants", "users"
